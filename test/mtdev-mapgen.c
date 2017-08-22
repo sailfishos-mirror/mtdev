@@ -49,7 +49,7 @@
 static unsigned int cabs2mt[ABS_CNT];
 static unsigned int cmt2abs[MT_ABS_SIZE];
 
-void init_caps()
+static void init_caps()
 {
 	static const int init_abs_map[MT_ABS_SIZE] = MT_SLOT_ABS_EVENTS;
 	int i;
