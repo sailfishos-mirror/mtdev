@@ -31,8 +31,8 @@
 #include <time.h>
 
 #define ITS 4000000
-const int n1 = 4;
-const int n2 = 4;
+static const int n1 = 4;
+static const int n2 = 4;
 
 static void test1()
 {
