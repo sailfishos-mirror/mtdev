@@ -82,7 +82,7 @@ static void default_fuzz(struct mtdev *dev, int code, int sn)
 	abs->fuzz = (abs->maximum - abs->minimum) / sn;
 }
 
-int mtdev_set_slots(struct mtdev *dev, int fd)
+static int mtdev_set_slots(struct mtdev *dev, int fd)
 {
 	struct { unsigned code; int values[DIM_FINGER]; } req;
 	struct mtdev_state *state = dev->state;
