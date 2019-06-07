@@ -32,16 +32,12 @@ static const int SN_COORD = 250;	/* coordinate signal-to-noise ratio */
 static const int SN_WIDTH = 100;	/* width signal-to-noise ratio */
 static const int SN_ORIENT = 10;	/* orientation signal-to-noise ratio */
 
-static const int bits_per_long = 8 * sizeof(long);
-
-static inline int nlongs(int nbit)
-{
-	return (nbit + bits_per_long - 1) / bits_per_long;
-}
+#define LONG_BITS (sizeof(long) * 8)
+#define NLONGS(x) (((x) + LONG_BITS - 1) / LONG_BITS)
 
 static inline int getbit(const unsigned long *map, int key)
 {
-	return (map[key / bits_per_long] >> (key % bits_per_long)) & 0x01;
+	return (map[key / LONG_BITS] >> (key % LONG_BITS)) & 0x01;
 }
 
 static int getabs(struct input_absinfo *abs, int key, int fd)
@@ -106,7 +102,7 @@ static int mtdev_set_slots(struct mtdev *dev, int fd)
 
 int mtdev_configure(struct mtdev *dev, int fd)
 {
-	unsigned long absbits[nlongs(ABS_MAX)];
+	unsigned long absbits[NLONGS(ABS_MAX)];
 	int rc, i;
 
 	SYSCALL(rc = ioctl(fd, EVIOCGBIT(EV_ABS, sizeof(absbits)), absbits));
