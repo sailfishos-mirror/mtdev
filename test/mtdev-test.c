@@ -30,9 +30,15 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <stdint.h>
+
+#ifndef input_event_sec
+#define input_event_sec time.tv_sec
+#define input_event_usec time.tv_usec
+#endif
 
 /* year-proof millisecond event time */
-typedef __u64 mstime_t;
+typedef uint64_t mstime_t;
 
 static int use_event(const struct input_event *ev)
 {
@@ -47,7 +53,7 @@ static void print_event(const struct input_event *ev)
 {
 	static const mstime_t ms = 1000;
 	static int slot;
-	mstime_t evtime = ev->time.tv_usec / ms + ev->time.tv_sec * ms;
+	mstime_t evtime = ev->input_event_usec / ms + ev->input_event_sec * ms;
 	if (ev->type == EV_ABS && ev->code == ABS_MT_SLOT)
 		slot = ev->value;
 	fprintf(stderr, "%012llx %02d %01d %04x %d\n",

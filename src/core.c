@@ -31,6 +31,11 @@
 #include "evbuf.h"
 #include "match.h"
 
+#ifndef input_event_sec
+#define input_event_sec time.tv_sec
+#define input_event_usec time.tv_usec
+#endif
+
 static inline int istouch(const struct mtdev_slot *data,
 			  const struct mtdev *dev)
 {
@@ -251,7 +256,8 @@ static void push_slot_changes(struct mtdev_state *state,
 			count++;
 	if (!count)
 		return;
-	ev.time = syn->time;
+	ev.input_event_sec = syn->input_event_sec;
+	ev.input_event_usec = syn->input_event_usec;
 	ev.type = EV_ABS;
 	ev.code = ABS_MT_SLOT;
 	ev.value = slot;
