@@ -36,7 +36,7 @@ static const int n2 = 4;
 
 static void test1()
 {
-	int A[] = {
+	int A[DIM2_FINGER] = {
 		1013,
 		3030660,
 		3559354,
@@ -62,7 +62,7 @@ static void test1()
 
 static void test2()
 {
-	int A[] = {
+	int A[DIM2_FINGER] = {
 		0,
 		4534330,
 		22653552,
